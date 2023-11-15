@@ -1,12 +1,11 @@
 package com.exercises.request_params;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 @RestController
@@ -60,4 +59,11 @@ public class HomeController {
         }
         return ResponseEntity.ok(response.toString());
     }
+
+    @RequestMapping(value = {"/user", "user/{userId}"})
+    public String index(@PathVariable(name = "userId") Optional<Integer> userId) {
+        return userId.map(integer -> "The user id is" + integer).orElse("There is no user id!");
+    }
+
+
 }
